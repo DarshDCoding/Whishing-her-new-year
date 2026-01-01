@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for Khushi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff85a1;
+            --soft-pink: #fbb1bd;
+            --deep-rose: #ff4d6d;
+            --gold: #ffd700;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 10px;
+            transition: background 1s ease;
+        }
+
+        body.new-year-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--soft-pink);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 2.5rem 1.5rem;
+            border-radius: 2rem;
+            box-shadow: 0 20px 50px rgba(255, 133, 161, 0.2);
+            text-align: center;
+            z-index: 10;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid white;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+        }
+
+        body.new-year-mode .main-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .heart-button, .new-year-btn {
+            background: var(--deep-rose);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            width: auto;
+            max-width: 100%;
+            margin-top: 1rem;
+        }
+
+        .new-year-btn {
+            background: linear-gradient(45deg, #f39c12, #d35400);
+            box-shadow: 0 10px 20px rgba(211, 84, 0, 0.3);
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart-button:hover, .new-year-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .romantic-text, .ny-text {
+            font-family: 'Dancing Script', cursive;
+            line-height: 1.2;
+            color: var(--deep-rose);
+            opacity: 0;
+            transform: translateY(20px);
+            display: none;
+            word-wrap: break-word;
+        }
+
+        .romantic-text { font-size: 2.8rem; }
+        .ny-text { font-size: 3rem; color: var(--gold); }
+
+        .revealed .romantic-text {
+            display: block;
+            animation: fadeInUp 1.2s forwards;
+        }
+
+        .revealed .heart-button, .revealed .initial-text {
+            display: none;
+        }
+
+        .ny-revealed .romantic-text, .ny-revealed .new-year-btn, .ny-revealed .love-letter {
+            display: none !important;
+        }
+
+        .ny-revealed .ny-text {
+            display: block;
+            animation: fadeInUp 1.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: white;
+            pointer-events: none;
+        }
+
+        .love-letter {
+            font-size: 0.95rem;
+            color: #880d1e;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 420px) {
+            .main-card { padding: 2rem 1rem; border-radius: 1.5rem; }
+            .romantic-text { font-size: 2.5rem; }
+            .ny-text { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 360px) {
+            .romantic-text { font-size: 2.2rem; }
+            .ny-text { font-size: 2.2rem; }
+            .heart-button, .new-year-btn { font-size: 1rem; padding: 0.75rem 1.5rem; }
+        }
+
+        @media (max-width: 320px) {
+            .romantic-text { font-size: 1.8rem; }
+            .ny-text { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+
+    <div class="main-card" id="card">
+        <div class="initial-text">
+            <h2 class="text-xl md:text-2xl font-light text-pink-600 mb-4">Hey Khushi...</h2>
+            <p class="text-gray-500 mb-6 text-sm md:text-base">I have something important to tell you.</p>
+        </div>
+        
+        <button class="heart-button" id="start-btn" onclick="revealLove()">
+            Click for a Surprise ❤️
+        </button>
+
+        <div class="romantic-text" id="love-msg">
+            I Love You Khushi
+        </div>
+        
+        <p class="love-letter hidden" id="subtext">Every heartbeat belongs to you, now and forever.</p>
+
+        <button class="new-year-btn" id="ny-btn" onclick="revealNewYear()">
+            And one more thing... ✨
+        </button>
+
+        <div class="ny-text" id="ny-msg">
+            Happy New Year, My Khushi! 🎆
+        </div>
+    </div>
+
+    <script>
+        function createHeart(color = null) {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = Math.random() > 0.5 ? '❤️' : '💖';
+            if (color) heart.style.color = color;
+            heart.style.left = Math.random() * 95 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        let heartInterval = setInterval(createHeart, 500);
+
+        function createSparkle(x, y, isNY = false) {
+            const count = isNY ? 40 : 20;
+            for(let i=0; i<count; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                
+                if (isNY) {
+                    const colors = ['#ffd700', '#ffffff', '#ff4d6d', '#00d4ff'];
+                    sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    sparkle.style.backgroundColor = `hsl(${Math.random() * 30 + 340}, 100%, 70%)`;
+                }
+                
+                const destinationX = (Math.random() - 0.5) * (isNY ? 300 : 150);
+                const destinationY = (Math.random() - 0.5) * (isNY ? 300 : 150);
+                
+                document.body.appendChild(sparkle);
+                
+                const anim = sparkle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random() * 800,
+                    easing: 'ease-out'
+                });
+                
+                anim.onfinish = () => sparkle.remove();
+            }
+        }
+
+        function revealLove() {
+            const card = document.getElementById('card');
+            const subtext = document.getElementById('subtext');
+            const nyBtn = document.getElementById('ny-btn');
+            const rect = card.getBoundingClientRect();
+            
+            createSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+            card.classList.add('revealed');
+            
+            setTimeout(() => {
+                subtext.classList.remove('hidden');
+                subtext.classList.add('animate-pulse');
+                nyBtn.style.display = 'inline-block';
+                
+                for(let i=0; i<30; i++) {
+                    setTimeout(createHeart, i * 40);
+                }
+            }, 800);
+        }
+
+        function revealNewYear() {
+            const card = document.getElementById('card');
+            const body = document.body;
+            const rect = card.getBoundingClientRect();
+
+            body.classList.add('new-year-mode');
+            card.classList.add('ny-revealed');
+            
+            // Firework effect
+            const firework = () => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createSparkle(x, y, true);
+            };
+
+            for(let i=0; i<10; i++) {
+                setTimeout(firework, i * 200);
+            }
+
+            // Change heart colors to gold for NY
+            clearInterval(heartInterval);
+            heartInterval = setInterval(() => createHeart('#ffd700'), 400);
+        }
+    </script>
+</body>
+</html>
